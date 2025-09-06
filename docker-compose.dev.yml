@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  # PayloadCMS 开发环境
+  payload-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URI=mongodb://127.0.0.1:27017/payload?authSource=admin
+      - PAYLOAD_SECRET=dev-secret-key
+      - MONGODB_URI=mongodb://127.0.0.1:27017/payload?authSource=admin
+    volumes:
+      - .:/app
+      - /app/node_modules
+    restart: unless-stopped

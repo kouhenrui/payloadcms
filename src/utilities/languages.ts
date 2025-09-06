@@ -1,0 +1,262 @@
+import { translations } from '@payloadcms/translations/all'
+import { SYSTEM_CONFIG } from './key'
+// 语言字段配置
+export const createLanguageField = () => ({
+  name: 'language',
+  type: 'select' as const,
+  required: true,
+  defaultValue: SYSTEM_CONFIG.FALLBACK_LANGUAGE,
+  options: selectedLocales,
+  admin: {
+    position: 'sidebar' as const,
+    description: {
+      zh: '语言选择',
+      en: 'Language Selection',
+      ja: '言語選択',
+      ko: '언어 선택',
+      'zh-TW': '語言選擇',
+    },
+  },
+})
+
+// 获取语言标签
+export const getLanguageLabel = (value: string): string => {
+  const language = selectedLocales.find((lang) => lang.value === value)
+  return language ? language.label : value
+}
+
+// 获取语言值
+export const getLanguageValue = (label: string): string => {
+  const language = selectedLocales.find((lang) => lang.label === label)
+  return language ? language.value : label
+}
+
+// 语言分组
+export const LANGUAGE_GROUPS = {
+  eastAsia: ['zh', 'zh-TW', 'ja-JP', 'ko-KR'],
+  europe: [
+    'en',
+    'es-ES',
+    'fr-FR',
+    'de-DE',
+    'it-IT',
+    'pt-PT',
+    'ru-RU',
+    'nl-NL',
+    'pl-PL',
+    'sv-SE',
+    'no-NO',
+    'da-DK',
+    'fi-FI',
+    'cs-CZ',
+    'hu-HU',
+    'ro-RO',
+    'bg-BG',
+    'hr-HR',
+    'sl-SI',
+    'sk-SK',
+    'et-EE',
+    'lv-LV',
+    'lt-LT',
+    'el-GR',
+    'tr-TR',
+  ],
+  southAsia: [
+    'hi-IN',
+    'bn-BD',
+    'ur-PK',
+    'ta-IN',
+    'te-IN',
+    'kn-IN',
+    'ml-IN',
+    'gu-IN',
+    'pa-IN',
+    'mr-IN',
+    'or-IN',
+    'si-LK',
+    'ne-NP',
+  ],
+  southeastAsia: ['id-ID', 'ms-MY', 'th-TH', 'vi-VN', 'fil-PH', 'my-MM', 'km-KH', 'lo-LA'],
+  middleEast: ['ar-SA', 'fa-IR', 'he-IL'],
+  africa: [
+    'af-ZA',
+    'sw-KE',
+    'yo-NG',
+    'ig-NG',
+    'ha-NG',
+    'am-ET',
+    'om-ET',
+    'so-SO',
+    'zu-ZA',
+    'xh-ZA',
+  ],
+  americas: [
+    'pt-BR',
+    'es-MX',
+    'es-AR',
+    'es-CO',
+    'es-CL',
+    'es-PE',
+    'es-VE',
+    'es-EC',
+    'es-GT',
+    'es-CU',
+    'es-BO',
+    'es-DO',
+    'es-HN',
+    'es-PY',
+    'es-SV',
+    'es-NI',
+    'es-CR',
+    'es-PA',
+    'es-UY',
+    'es-GQ',
+  ],
+  others: [
+    'ca-ES',
+    'gl-ES',
+    'eu-ES',
+    'is-IS',
+    'mt-MT',
+    'ga-IE',
+    'cy-GB',
+    'gd-GB',
+    'br-FR',
+    'fy-NL',
+    'lb-LU',
+    'rm-CH',
+    'la-VA',
+  ],
+} as const
+
+// 只选择需要的语言
+export const selectedLanguages = {
+  en: translations.en,
+  zh: translations.zh,
+  ja: translations.ja,
+  ko: translations.ko,
+  'zh-TW': translations['zh-TW'],
+}
+export const selectedLocales = [
+  { label: '简体中文 (Chinese Simplified)', value: 'zh' },
+  { label: '繁體中文 (Chinese Traditional)', value: 'zh-TW' },
+  { label: '日本語 (Japanese)', value: 'ja-JP' },
+  { label: '한국어 (Korean)', value: 'ko-KR' },
+  { label: 'English (English)', value: 'en' },
+  // 欧洲语言
+
+  // { label: 'Español (Spanish)', value: 'es-ES' },
+  // { label: 'Français (French)', value: 'fr-FR' },
+  // { label: 'Deutsch (German)', value: 'de-DE' },
+  // { label: 'Italiano (Italian)', value: 'it-IT' },
+  // { label: 'Português (Portuguese)', value: 'pt-PT' },
+  // { label: 'Русский (Russian)', value: 'ru-RU' },
+  // { label: 'Nederlands (Dutch)', value: 'nl-NL' },
+  // { label: 'Polski (Polish)', value: 'pl-PL' },
+  // { label: 'Svenska (Swedish)', value: 'sv-SE' },
+  // { label: 'Norsk (Norwegian)', value: 'no-NO' },
+  // { label: 'Dansk (Danish)', value: 'da-DK' },
+  // { label: 'Suomi (Finnish)', value: 'fi-FI' },
+  // { label: 'Čeština (Czech)', value: 'cs-CZ' },
+  // { label: 'Magyar (Hungarian)', value: 'hu-HU' },
+  // { label: 'Română (Romanian)', value: 'ro-RO' },
+  // { label: 'Български (Bulgarian)', value: 'bg-BG' },
+  // { label: 'Hrvatski (Croatian)', value: 'hr-HR' },
+  // { label: 'Slovenščina (Slovenian)', value: 'sl-SI' },
+  // { label: 'Slovenčina (Slovak)', value: 'sk-SK' },
+  // { label: 'Eesti (Estonian)', value: 'et-EE' },
+  // { label: 'Latviešu (Latvian)', value: 'lv-LV' },
+  // { label: 'Lietuvių (Lithuanian)', value: 'lt-LT' },
+  // { label: 'Ελληνικά (Greek)', value: 'el-GR' },
+  // { label: 'Türkçe (Turkish)', value: 'tr-TR' },
+
+  // // 南亚语言
+  // { label: 'हिन्दी (Hindi)', value: 'hi-IN' },
+  // { label: 'বাংলা (Bengali)', value: 'bn-BD' },
+  // { label: 'اردو (Urdu)', value: 'ur-PK' },
+  // { label: 'தமிழ் (Tamil)', value: 'ta-IN' },
+  // { label: 'తెలుగు (Telugu)', value: 'te-IN' },
+  // { label: 'ಕನ್ನಡ (Kannada)', value: 'kn-IN' },
+  // { label: 'മലയാളം (Malayalam)', value: 'ml-IN' },
+  // { label: 'ગુજરાતી (Gujarati)', value: 'gu-IN' },
+  // { label: 'ਪੰਜਾਬੀ (Punjabi)', value: 'pa-IN' },
+  // { label: 'मराठी (Marathi)', value: 'mr-IN' },
+  // { label: 'ଓଡ଼ିଆ (Odia)', value: 'or-IN' },
+  // { label: 'ସିଂହଳ (Sinhala)', value: 'si-LK' },
+  // { label: 'नेपाली (Nepali)', value: 'ne-NP' },
+
+  // // 东南亚语言
+  // { label: 'Bahasa Indonesia (Indonesian)', value: 'id-ID' },
+  // { label: 'Bahasa Melayu (Malay)', value: 'ms-MY' },
+  // { label: 'ภาษาไทย (Thai)', value: 'th-TH' },
+  // { label: 'Tiếng Việt (Vietnamese)', value: 'vi-VN' },
+  // { label: 'Filipino (Filipino)', value: 'fil-PH' },
+  // { label: 'မြန်မာဘာသာ (Burmese)', value: 'my-MM' },
+  // { label: 'ភាសាខ្មែរ (Khmer)', value: 'km-KH' },
+  // { label: 'ພາສາລາວ (Lao)', value: 'lo-LA' },
+
+  // // 中东语言
+  // { label: 'العربية (Arabic)', value: 'ar-SA' },
+  // { label: 'فارسی (Persian)', value: 'fa-IR' },
+  // { label: 'עברית (Hebrew)', value: 'he-IL' },
+  // { label: 'اردو (Urdu)', value: 'ur-IN' },
+
+  // // 非洲语言
+  // { label: 'Afrikaans (Afrikaans)', value: 'af-ZA' },
+  // { label: 'Swahili (Swahili)', value: 'sw-KE' },
+  // { label: 'Yorùbá (Yoruba)', value: 'yo-NG' },
+  // { label: 'Igbo (Igbo)', value: 'ig-NG' },
+  // { label: 'Hausa (Hausa)', value: 'ha-NG' },
+  // { label: 'Amharic (Amharic)', value: 'am-ET' },
+  // { label: 'Oromo (Oromo)', value: 'om-ET' },
+  // { label: 'Somali (Somali)', value: 'so-SO' },
+  // { label: 'Zulu (Zulu)', value: 'zu-ZA' },
+  // { label: 'Xhosa (Xhosa)', value: 'xh-ZA' },
+
+  // // 美洲语言
+  // { label: 'Português do Brasil (Brazilian Portuguese)', value: 'pt-BR' },
+  // { label: 'Español de México (Mexican Spanish)', value: 'es-MX' },
+  // { label: 'Español de Argentina (Argentine Spanish)', value: 'es-AR' },
+  // { label: 'Español de Colombia (Colombian Spanish)', value: 'es-CO' },
+  // { label: 'Español de Chile (Chilean Spanish)', value: 'es-CL' },
+  // { label: 'Español de Perú (Peruvian Spanish)', value: 'es-PE' },
+  // { label: 'Español de Venezuela (Venezuelan Spanish)', value: 'es-VE' },
+  // { label: 'Español de Ecuador (Ecuadorian Spanish)', value: 'es-EC' },
+  // { label: 'Español de Guatemala (Guatemalan Spanish)', value: 'es-GT' },
+  // { label: 'Español de Cuba (Cuban Spanish)', value: 'es-CU' },
+  // { label: 'Español de Bolivia (Bolivian Spanish)', value: 'es-BO' },
+  // { label: 'Español de República Dominicana (Dominican Spanish)', value: 'es-DO' },
+  // { label: 'Español de Honduras (Honduran Spanish)', value: 'es-HN' },
+  // { label: 'Español de Paraguay (Paraguayan Spanish)', value: 'es-PY' },
+  // { label: 'Español de El Salvador (Salvadoran Spanish)', value: 'es-SV' },
+  // { label: 'Español de Nicaragua (Nicaraguan Spanish)', value: 'es-NI' },
+  // { label: 'Español de Costa Rica (Costa Rican Spanish)', value: 'es-CR' },
+  // { label: 'Español de Panamá (Panamanian Spanish)', value: 'es-PA' },
+  // { label: 'Español de Uruguay (Uruguayan Spanish)', value: 'es-UY' },
+  // {
+  //   label: 'Español de Guinea Ecuatorial (Equatorial Guinean Spanish)',
+  //   value: 'es-GQ',
+  // },
+
+  // // 其他重要语言
+  // { label: 'Català (Catalan)', value: 'ca-ES' },
+  // { label: 'Galego (Galician)', value: 'gl-ES' },
+  // { label: 'Euskara (Basque)', value: 'eu-ES' },
+  // { label: 'Íslenska (Icelandic)', value: 'is-IS' },
+  // { label: 'Malti (Maltese)', value: 'mt-MT' },
+  // { label: 'Gaeilge (Irish)', value: 'ga-IE' },
+  // { label: 'Cymraeg (Welsh)', value: 'cy-GB' },
+  // { label: 'Gàidhlig (Scottish Gaelic)', value: 'gd-GB' },
+  // { label: 'Brezhoneg (Breton)', value: 'br-FR' },
+  // { label: 'Frysk (Frisian)', value: 'fy-NL' },
+  // { label: 'Lëtzebuergesch (Luxembourgish)', value: 'lb-LU' },
+  // { label: 'Rumantsch (Romansh)', value: 'rm-CH' },
+  // { label: 'Latina (Latin)', value: 'la-VA' },
+]
+export const locationLanguages = [
+  { label: '简体中文 (Chinese Simplified)', code: 'zh' },
+  { label: '繁體中文 (Chinese Traditional)', code: 'zh-TW' },
+  { label: '日本語 (Japanese)', code: 'ja-JP' },
+  { label: '한국어 (Korean)', code: 'ko-KR' },
+  { label: 'English (English)', code: 'en' },
+]
