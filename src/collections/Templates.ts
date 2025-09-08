@@ -135,15 +135,6 @@ export const Templates: CollectionConfig = {
               },
             },
             {
-              name: 'label',
-              type: 'text',
-              required: true,
-              localized: true,
-              admin: {
-                description: '字段标签',
-              },
-            },
-            {
               name: 'placeholder',
               type: 'text',
               localized: true,
@@ -194,15 +185,6 @@ export const Templates: CollectionConfig = {
               },
             },
             {
-              name: 'label',
-              type: 'text',
-              required: true,
-              localized: true,
-              admin: {
-                description: '字段标签',
-              },
-            },
-            {
               name: 'required',
               type: 'checkbox',
               defaultValue: false,
@@ -235,15 +217,6 @@ export const Templates: CollectionConfig = {
               required: true,
               admin: {
                 description: '字段名称（用于数据存储）',
-              },
-            },
-            {
-              name: 'label',
-              type: 'text',
-              required: true,
-              localized: true,
-              admin: {
-                description: '字段标签',
               },
             },
             {
@@ -304,15 +277,6 @@ export const Templates: CollectionConfig = {
               },
             },
             {
-              name: 'label',
-              type: 'text',
-              required: true,
-              localized: true,
-              admin: {
-                description: '字段标签',
-              },
-            },
-            {
               name: 'required',
               type: 'checkbox',
               defaultValue: false,
@@ -330,12 +294,6 @@ export const Templates: CollectionConfig = {
               type: 'array',
               required: true,
               fields: [
-                {
-                  name: 'label',
-                  type: 'text',
-                  required: true,
-                  localized: true,
-                },
                 {
                   name: 'value',
                   type: 'text',
@@ -647,15 +605,6 @@ export const Templates: CollectionConfig = {
               },
             },
             {
-              name: 'label',
-              type: 'text',
-              required: true,
-              localized: true,
-              admin: {
-                description: '字段标签',
-              },
-            },
-            {
               name: 'required',
               type: 'checkbox',
               defaultValue: false,
@@ -667,6 +616,23 @@ export const Templates: CollectionConfig = {
               admin: {
                 description: '默认选中',
               },
+            },
+            {
+              name: 'options',
+              type: 'array',
+              required: true,
+              fields: [
+                {
+                  name: 'value',
+                  type: 'text',
+                  required: true,
+                },
+                {
+                  name: 'defaultSelected',
+                  type: 'checkbox',
+                  defaultValue: false,
+                },
+              ],
             },
           ],
         },
@@ -699,15 +665,6 @@ export const Templates: CollectionConfig = {
               },
             },
             {
-              name: 'label',
-              type: 'text',
-              required: true,
-              localized: true,
-              admin: {
-                description: '字段标签',
-              },
-            },
-            {
               name: 'required',
               type: 'checkbox',
               defaultValue: false,
@@ -717,12 +674,6 @@ export const Templates: CollectionConfig = {
               type: 'array',
               required: true,
               fields: [
-                {
-                  name: 'label',
-                  type: 'text',
-                  required: true,
-                  localized: true,
-                },
                 {
                   name: 'value',
                   type: 'text',

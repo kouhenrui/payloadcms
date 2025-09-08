@@ -1,7 +1,7 @@
 import { isAdminOrSelf } from '@/access/userAccess'
 import { CollectionConfig } from 'payload'
 import { PUBLISHED_STATUS } from '@/utilities/key'
-import { getBaseFields } from '@/utilities/dynamicFields'
+import { getBaseFields, getTemplateType } from '@/utilities/dynamicFields'
 
 export const Components: CollectionConfig = {
   slug: 'components',
@@ -47,6 +47,10 @@ export const Components: CollectionConfig = {
     delete: isAdminOrSelf,
   },
   fields: [
+    // 基础字段 - 使用 getBaseFields 函数
+    ...getBaseFields(),
+    // 模板选择字段
+    getTemplateType('component'),
     {
       name: 'templateFields',
       type: 'blocks',
@@ -255,8 +259,6 @@ export const Components: CollectionConfig = {
         },
       ],
     },
-    // 基础字段 - 使用 getBaseFields 函数
-    ...getBaseFields(),
   ],
   timestamps: true,
   hooks: {

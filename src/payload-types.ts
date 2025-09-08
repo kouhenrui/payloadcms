@@ -191,10 +191,6 @@ export interface Template {
    */
   updatedBy?: (string | null) | User;
   /**
-   * Version Update Note
-   */
-  versionNote?: string | null;
-  /**
    * Select Template Type
    */
   templateType: 'page' | 'component' | 'collection';
@@ -207,10 +203,6 @@ export interface Template {
          * 字段名称（用于数据存储）
          */
         fieldName: string;
-        /**
-         * 字段标签
-         */
-        label: string;
         /**
          * 占位符文本
          */
@@ -229,10 +221,6 @@ export interface Template {
          * 字段名称（用于数据存储）
          */
         fieldName: string;
-        /**
-         * 字段标签
-         */
-        label: string;
         required?: boolean | null;
         id?: string | null;
         blockName?: string | null;
@@ -243,10 +231,6 @@ export interface Template {
          * 字段名称（用于数据存储）
          */
         fieldName: string;
-        /**
-         * 字段标签
-         */
-        label: string;
         required?: boolean | null;
         /**
          * 最小值
@@ -269,17 +253,12 @@ export interface Template {
          * 字段名称（用于数据存储）
          */
         fieldName: string;
-        /**
-         * 字段标签
-         */
-        label: string;
         required?: boolean | null;
         /**
          * 是否多选
          */
         multiple?: boolean | null;
         options: {
-          label: string;
           value: string;
           id?: string | null;
         }[];
@@ -390,15 +369,16 @@ export interface Template {
          * 字段名称（用于数据存储）
          */
         fieldName: string;
-        /**
-         * 字段标签
-         */
-        label: string;
         required?: boolean | null;
         /**
          * 默认选中
          */
         defaultChecked?: boolean | null;
+        options: {
+          value: string;
+          defaultSelected?: boolean | null;
+          id?: string | null;
+        }[];
         id?: string | null;
         blockName?: string | null;
         blockType: 'checkbox';
@@ -408,13 +388,8 @@ export interface Template {
          * 字段名称（用于数据存储）
          */
         fieldName: string;
-        /**
-         * 字段标签
-         */
-        label: string;
         required?: boolean | null;
         options: {
-          label: string;
           value: string;
           defaultSelected?: boolean | null;
           id?: string | null;
@@ -462,6 +437,34 @@ export interface Template {
  */
 export interface Page {
   id: string;
+  /**
+   * URL Friendly Identifier
+   */
+  slug: string;
+  /**
+   * Language Selection
+   */
+  language: 'zh' | 'zh-TW' | 'ja-JP' | 'ko-KR' | 'en';
+  /**
+   * Content Status
+   */
+  status: 'draft' | 'published' | 'archived';
+  /**
+   * Content Author
+   */
+  author: string | User;
+  /**
+   * Published At
+   */
+  publishedAt?: string | null;
+  /**
+   * Last Updated By
+   */
+  updatedBy?: (string | null) | User;
+  /**
+   * Select a published page template
+   */
+  template: string | Template;
   /**
    * 根据模板定义的字段添加内容
    */
@@ -591,34 +594,6 @@ export interface Page {
         blockType: 'templateField';
       }[]
     | null;
-  /**
-   * URL Friendly Identifier
-   */
-  slug: string;
-  /**
-   * Language Selection
-   */
-  language: 'zh' | 'zh-TW' | 'ja-JP' | 'ko-KR' | 'en';
-  /**
-   * Content Status
-   */
-  status: 'draft' | 'published' | 'archived';
-  /**
-   * Content Author
-   */
-  author: string | User;
-  /**
-   * Published At
-   */
-  publishedAt?: string | null;
-  /**
-   * Last Updated By
-   */
-  updatedBy?: (string | null) | User;
-  /**
-   * Version Update Note
-   */
-  versionNote?: string | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -777,6 +752,34 @@ export interface Media {
 export interface Component {
   id: string;
   /**
+   * URL Friendly Identifier
+   */
+  slug: string;
+  /**
+   * Language Selection
+   */
+  language: 'zh' | 'zh-TW' | 'ja-JP' | 'ko-KR' | 'en';
+  /**
+   * Content Status
+   */
+  status: 'draft' | 'published' | 'archived';
+  /**
+   * Content Author
+   */
+  author: string | User;
+  /**
+   * Published At
+   */
+  publishedAt?: string | null;
+  /**
+   * Last Updated By
+   */
+  updatedBy?: (string | null) | User;
+  /**
+   * Select a published component template
+   */
+  template: string | Template;
+  /**
    * 根据模板定义的字段添加内容
    */
   templateFields?:
@@ -905,6 +908,18 @@ export interface Component {
         blockType: 'templateField';
       }[]
     | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * Create collection content using collection templates, supporting multiple languages
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "collections".
+ */
+export interface Collection {
+  id: string;
   /**
    * URL Friendly Identifier
    */
@@ -930,21 +945,9 @@ export interface Component {
    */
   updatedBy?: (string | null) | User;
   /**
-   * Version Update Note
+   * Select a published collection template
    */
-  versionNote?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * Create collection content using collection templates, supporting multiple languages
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "collections".
- */
-export interface Collection {
-  id: string;
+  template: string | Template;
   /**
    * Add content based on the template defined fields
    */
@@ -1002,34 +1005,6 @@ export interface Collection {
         blockType: 'dynamicField';
       }[]
     | null;
-  /**
-   * URL Friendly Identifier
-   */
-  slug: string;
-  /**
-   * Language Selection
-   */
-  language: 'zh' | 'zh-TW' | 'ja-JP' | 'ko-KR' | 'en';
-  /**
-   * Content Status
-   */
-  status: 'draft' | 'published' | 'archived';
-  /**
-   * Content Author
-   */
-  author: string | User;
-  /**
-   * Published At
-   */
-  publishedAt?: string | null;
-  /**
-   * Last Updated By
-   */
-  updatedBy?: (string | null) | User;
-  /**
-   * Version Update Note
-   */
-  versionNote?: string | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -1143,7 +1118,6 @@ export interface TemplatesSelect<T extends boolean = true> {
   author?: T;
   publishedAt?: T;
   updatedBy?: T;
-  versionNote?: T;
   templateType?: T;
   fields?:
     | T
@@ -1152,7 +1126,6 @@ export interface TemplatesSelect<T extends boolean = true> {
           | T
           | {
               fieldName?: T;
-              label?: T;
               placeholder?: T;
               required?: T;
               maxLength?: T;
@@ -1163,7 +1136,6 @@ export interface TemplatesSelect<T extends boolean = true> {
           | T
           | {
               fieldName?: T;
-              label?: T;
               required?: T;
               id?: T;
               blockName?: T;
@@ -1172,7 +1144,6 @@ export interface TemplatesSelect<T extends boolean = true> {
           | T
           | {
               fieldName?: T;
-              label?: T;
               required?: T;
               min?: T;
               max?: T;
@@ -1184,13 +1155,11 @@ export interface TemplatesSelect<T extends boolean = true> {
           | T
           | {
               fieldName?: T;
-              label?: T;
               required?: T;
               multiple?: T;
               options?:
                 | T
                 | {
-                    label?: T;
                     value?: T;
                     id?: T;
                   };
@@ -1253,9 +1222,15 @@ export interface TemplatesSelect<T extends boolean = true> {
           | T
           | {
               fieldName?: T;
-              label?: T;
               required?: T;
               defaultChecked?: T;
+              options?:
+                | T
+                | {
+                    value?: T;
+                    defaultSelected?: T;
+                    id?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -1263,12 +1238,10 @@ export interface TemplatesSelect<T extends boolean = true> {
           | T
           | {
               fieldName?: T;
-              label?: T;
               required?: T;
               options?:
                 | T
                 | {
-                    label?: T;
                     value?: T;
                     defaultSelected?: T;
                     id?: T;
@@ -1298,6 +1271,13 @@ export interface TemplatesSelect<T extends boolean = true> {
  * via the `definition` "pages_select".
  */
 export interface PagesSelect<T extends boolean = true> {
+  slug?: T;
+  language?: T;
+  status?: T;
+  author?: T;
+  publishedAt?: T;
+  updatedBy?: T;
+  template?: T;
   templateFields?:
     | T
     | {
@@ -1358,13 +1338,6 @@ export interface PagesSelect<T extends boolean = true> {
               blockName?: T;
             };
       };
-  slug?: T;
-  language?: T;
-  status?: T;
-  author?: T;
-  publishedAt?: T;
-  updatedBy?: T;
-  versionNote?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -1374,6 +1347,13 @@ export interface PagesSelect<T extends boolean = true> {
  * via the `definition` "components_select".
  */
 export interface ComponentsSelect<T extends boolean = true> {
+  slug?: T;
+  language?: T;
+  status?: T;
+  author?: T;
+  publishedAt?: T;
+  updatedBy?: T;
+  template?: T;
   templateFields?:
     | T
     | {
@@ -1434,13 +1414,6 @@ export interface ComponentsSelect<T extends boolean = true> {
               blockName?: T;
             };
       };
-  slug?: T;
-  language?: T;
-  status?: T;
-  author?: T;
-  publishedAt?: T;
-  updatedBy?: T;
-  versionNote?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -1450,6 +1423,13 @@ export interface ComponentsSelect<T extends boolean = true> {
  * via the `definition` "collections_select".
  */
 export interface CollectionsSelect<T extends boolean = true> {
+  slug?: T;
+  language?: T;
+  status?: T;
+  author?: T;
+  publishedAt?: T;
+  updatedBy?: T;
+  template?: T;
   templateFields?:
     | T
     | {
@@ -1469,13 +1449,6 @@ export interface CollectionsSelect<T extends boolean = true> {
               blockName?: T;
             };
       };
-  slug?: T;
-  language?: T;
-  status?: T;
-  author?: T;
-  publishedAt?: T;
-  updatedBy?: T;
-  versionNote?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
