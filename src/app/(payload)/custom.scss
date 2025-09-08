@@ -19,39 +19,39 @@
 }
 
 // 浅色主题
-.theme-light {
-  --background: #ffffff;
-  --foreground: #0f172a;
-  --border: #e2e8f0;
-  --muted: #f1f5f9;
-  --muted-foreground: #0f172a;
-  --primary: #3b82f6;
-  --primary-foreground: #ffffff;
-  --secondary: #f1f5f9;
-  --secondary-foreground: #0f172a;
-  --accent: #f59e0b;
-  --accent-foreground: #ffffff;
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
-}
+// .theme-light {
+//   --background: #ffffff;
+//   --foreground: #0f172a;
+//   --border: #e2e8f0;
+//   --muted: #f1f5f9;
+//   --muted-foreground: #0f172a;
+//   --primary: #3b82f6;
+//   --primary-foreground: #ffffff;
+//   --secondary: #f1f5f9;
+//   --secondary-foreground: #0f172a;
+//   --accent: #f59e0b;
+//   --accent-foreground: #ffffff;
+//   --destructive: #ef4444;
+//   --destructive-foreground: #ffffff;
+// }
 
-// 深色主题
-.theme-dark {
-  --background: #0f172a;
-  --foreground: #f8fafc;
-  --border: #0f172a;
-  --muted: #1e293b;
-  --muted-foreground: #0f172a;
-  --primary: #3b82f6;
-  --primary-foreground: #ffffff;
-  --secondary: #1e293b;
-  --secondary-foreground: #f8fafc;
-  --accent: #f59e0b;
-  --accent-foreground: #ffffff;
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
-  --ring: #3b82f6;
-}
+// // 深色主题
+// .theme-dark {
+//   --background: #0f172a;
+//   --foreground: #f8fafc;
+//   --border: #0f172a;
+//   --muted: #1e293b;
+//   --muted-foreground: #0f172a;
+//   --primary: #3b82f6;
+//   --primary-foreground: #ffffff;
+//   --secondary: #1e293b;
+//   --secondary-foreground: #f8fafc;
+//   --accent: #f59e0b;
+//   --accent-foreground: #ffffff;
+//   --destructive: #ef4444;
+//   --destructive-foreground: #ffffff;
+//   --ring: #3b82f6;
+// }
 
 // 自动主题（跟随系统）
 .theme-automatic {
@@ -72,181 +72,181 @@
     --ring: #ffffff;
   }
 
-  @media (prefers-color-scheme: dark) {
-    --background: #0f172a;
-    --foreground: #f8fafc;
-    --border: #334155;
-    --muted: #1e293b;
-    --muted-foreground: #0f172a;
-    --primary: #ffffff;
-    --primary-foreground: #000000;
-    --secondary: #1e293b;
-    --secondary-foreground: #f8fafc;
-    --accent: #f59e0b;
-    --accent-foreground: #ffffff;
-    --destructive: #ef4444;
-    --destructive-foreground: #ffffff;
-    --ring: #ffffff;
-  }
+  // @media (prefers-color-scheme: dark) {
+  //   --background: #0f172a;
+  //   --foreground: #f8fafc;
+  //   --border: #334155;
+  //   --muted: #1e293b;
+  //   --muted-foreground: #0f172a;
+  //   --primary: #ffffff;
+  //   --primary-foreground: #000000;
+  //   --secondary: #1e293b;
+  //   --secondary-foreground: #f8fafc;
+  //   --accent: #f59e0b;
+  //   --accent-foreground: #ffffff;
+  //   --destructive: #ef4444;
+  //   --destructive-foreground: #ffffff;
+  //   --ring: #ffffff;
+  // }
 }
 
 // 应用主题变量到 Payload 组件
-[data-theme] {
-  // 背景色
-  .payload-admin {
-    background-color: var(--background);
-    color: var(--foreground);
-  }
+// [data-theme] {
+//   // 背景色
+//   .payload-admin {
+//     background-color: var(--background);
+//     color: var(--foreground);
+//   }
 
-  // 导航栏
-  .nav {
-    background-color: var(--muted);
-    border-color: var(--border);
-  }
+//   // 导航栏
+//   .nav {
+//     background-color: var(--muted);
+//     border-color: var(--border);
+//   }
 
-  // 侧边栏
-  .nav__wrap {
-    background-color: var(--muted);
-    border-color: var(--border);
-  }
+//   // 侧边栏
+//   .nav__wrap {
+//     background-color: var(--muted);
+//     border-color: var(--border);
+//   }
 
-  // 按钮
-  .btn {
-    background-color: var(--primary);
-    color: var(--primary-foreground);
-    border-color: var(--primary);
+//   // 按钮
+//   .btn {
+//     background-color: var(--primary);
+//     color: var(--primary-foreground);
+//     border-color: var(--primary);
 
-    &:hover {
-      background-color: var(--primary);
-      opacity: 0.9;
-    }
+//     &:hover {
+//       background-color: var(--primary);
+//       opacity: 0.9;
+//     }
 
-    &.btn--style-secondary {
-      background-color: var(--secondary);
-      color: var(--secondary-foreground);
-      border-color: var(--secondary);
-    }
+//     &.btn--style-secondary {
+//       background-color: var(--secondary);
+//       color: var(--secondary-foreground);
+//       border-color: var(--secondary);
+//     }
 
-    &.btn--style-destructive {
-      background-color: var(--destructive);
-      color: var(--destructive-foreground);
-      border-color: var(--destructive);
-    }
-  }
+//     &.btn--style-destructive {
+//       background-color: var(--destructive);
+//       color: var(--destructive-foreground);
+//       border-color: var(--destructive);
+//     }
+//   }
 
-  // 表单元素
-  .field-type {
-    .input {
-      background-color: var(--background);
-      color: var(--foreground);
-      border-color: var(--border);
+//   // 表单元素
+//   .field-type {
+//     .input {
+//       background-color: var(--background);
+//       color: var(--foreground);
+//       border-color: var(--border);
 
-      &:focus {
-        border-color: var(--ring);
-        box-shadow: 0 0 0 2px var(--ring);
-      }
-    }
+//       &:focus {
+//         border-color: var(--ring);
+//         box-shadow: 0 0 0 2px var(--ring);
+//       }
+//     }
 
-    .select {
-      background-color: var(--background);
-      color: var(--foreground);
-      border-color: var(--border);
-    }
+//     .select {
+//       background-color: var(--background);
+//       color: var(--foreground);
+//       border-color: var(--border);
+//     }
 
-    .textarea {
-      background-color: var(--background);
-      color: var(--foreground);
-      border-color: var(--border);
-    }
-  }
+//     .textarea {
+//       background-color: var(--background);
+//       color: var(--foreground);
+//       border-color: var(--border);
+//     }
+//   }
 
-  // 卡片
-  .card {
-    background-color: var(--background);
-    border-color: var(--border);
-  }
+//   // 卡片
+//   .card {
+//     background-color: var(--background);
+//     border-color: var(--border);
+//   }
 
-  // 表格
-  .table {
-    background-color: var(--background);
-    color: var(--foreground);
+//   // 表格
+//   .table {
+//     background-color: var(--background);
+//     color: var(--foreground);
 
-    th,
-    td {
-      border-color: var(--border);
-    }
+//     th,
+//     td {
+//       border-color: var(--border);
+//     }
 
-    tr:hover {
-      background-color: var(--muted);
-    }
-  }
+//     tr:hover {
+//       background-color: var(--muted);
+//     }
+//   }
 
-  // 模态框
-  .modal {
-    background-color: var(--background);
-    border-color: var(--border);
-  }
+//   // 模态框
+//   .modal {
+//     background-color: var(--background);
+//     border-color: var(--border);
+//   }
 
-  // 工具提示
-  .tooltip {
-    background-color: var(--foreground);
-    color: var(--background);
-  }
+//   // 工具提示
+//   .tooltip {
+//     background-color: var(--foreground);
+//     color: var(--background);
+//   }
 
-  // 下拉菜单
-  .dropdown {
-    background-color: var(--background);
-    border-color: var(--border);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  }
+//   // 下拉菜单
+//   .dropdown {
+//     background-color: var(--background);
+//     border-color: var(--border);
+//     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+//   }
 
-  // 标签
-  .pill {
-    background-color: var(--muted);
-    color: var(--muted-foreground);
-  }
+//   // 标签
+//   .pill {
+//     background-color: var(--muted);
+//     color: var(--muted-foreground);
+//   }
 
-  // 进度条
-  .progress-bar {
-    background-color: var(--muted);
+//   // 进度条
+//   .progress-bar {
+//     background-color: var(--muted);
 
-    .progress-bar__fill {
-      background-color: var(--primary);
-    }
-  }
+//     .progress-bar__fill {
+//       background-color: var(--primary);
+//     }
+//   }
 
-  // 分页
-  .pagination {
-    .pagination__page {
-      background-color: var(--background);
-      color: var(--foreground);
-      border-color: var(--border);
+//   // 分页
+//   .pagination {
+//     .pagination__page {
+//       background-color: var(--background);
+//       color: var(--foreground);
+//       border-color: var(--border);
 
-      &:hover {
-        background-color: var(--muted);
-      }
+//       &:hover {
+//         background-color: var(--muted);
+//       }
 
-      &.pagination__page--is-active {
-        background-color: var(--primary);
-        color: var(--primary-foreground);
-      }
-    }
-  }
-}
+//       &.pagination__page--is-active {
+//         background-color: var(--primary);
+//         color: var(--primary-foreground);
+//       }
+//     }
+//   }
+// }
 
-// 主题切换动画
-* {
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease,
-    border-color 0.2s ease;
-}
+// // 主题切换动画
+// * {
+//   transition:
+//     background-color 0.2s ease,
+//     color 0.2s ease,
+//     border-color 0.2s ease;
+// }
 
-// 响应式调整
-@media (max-width: 768px) {
-  [data-theme] {
-    .nav__wrap {
-      background-color: var(--background);
-    }
-  }
-}
+// // 响应式调整
+// @media (max-width: 768px) {
+//   [data-theme] {
+//     .nav__wrap {
+//       background-color: var(--background);
+//     }
+//   }
+// }

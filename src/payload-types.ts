@@ -92,12 +92,8 @@ export interface Config {
   db: {
     defaultIDType: string;
   };
-  globals: {
-    settings: Setting;
-  };
-  globalsSelect: {
-    settings: SettingsSelect<false> | SettingsSelect<true>;
-  };
+  globals: {};
+  globalsSelect: {};
   locale: null;
   user: User & {
     collection: 'users';
@@ -199,163 +195,261 @@ export interface Template {
    */
   versionNote?: string | null;
   /**
+   * Select Template Type
+   */
+  templateType: 'page' | 'component' | 'collection';
+  /**
    * Select Template Field Type, Build Template Structure
    */
-  fields: {
-    /**
-     * 选择字段类型
-     */
-    fieldType:
-      | 'text'
-      | 'textarea'
-      | 'richText'
-      | 'number'
-      | 'email'
-      | 'tel'
-      | 'password'
-      | 'select'
-      | 'radio'
-      | 'checkbox'
-      | 'checkboxGroup'
-      | 'date'
-      | 'time'
-      | 'datetime'
-      | 'file'
-      | 'image'
-      | 'color'
-      | 'range'
-      | 'rating'
-      | 'hidden'
-      | 'question'
-      | 'answer'
-      | 'divider'
-      | 'heading'
-      | 'description'
-      | 'contactForm'
-      | 'stats'
-      | 'table'
-      | 'list'
-      | 'quote'
-      | 'button'
-      | 'code'
-      | 'video'
-      | 'embed'
-      | 'gallery';
-    /**
-     * 字段名称（用于数据存储）
-     */
-    fieldName: string;
-    /**
-     * 字段标签（显示给用户）
-     */
-    fieldLabel: string;
-    /**
-     * 字段配置（点击展开）
-     */
-    fieldConfig?: {
-      /**
-       * 是否必填
-       */
-      required?: boolean | null;
-      /**
-       * 默认值
-       */
-      defaultValue?: string | null;
-      /**
-       * 占位符文本
-       */
-      placeholder?: string | null;
-      /**
-       * 字段说明
-       */
-      description?: string | null;
-      /**
-       * 高级配置（可选）
-       */
-      advancedConfig?: {
+  fields: (
+    | {
         /**
-         * 最大长度（可选）
+         * 字段名称（用于数据存储）
+         */
+        fieldName: string;
+        /**
+         * 字段标签
+         */
+        label: string;
+        /**
+         * 占位符文本
+         */
+        placeholder?: string | null;
+        required?: boolean | null;
+        /**
+         * 最大长度
          */
         maxLength?: number | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'textInput';
+      }
+    | {
         /**
-         * 最小长度（可选）
+         * 字段名称（用于数据存储）
          */
-        minLength?: number | null;
+        fieldName: string;
         /**
-         * 文本域行数（可选）
+         * 字段标签
          */
-        rows?: number | null;
+        label: string;
+        required?: boolean | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'richText';
+      }
+    | {
         /**
-         * 最小值（可选）
+         * 字段名称（用于数据存储）
+         */
+        fieldName: string;
+        /**
+         * 字段标签
+         */
+        label: string;
+        required?: boolean | null;
+        /**
+         * 最小值
          */
         min?: number | null;
         /**
-         * 最大值（可选）
+         * 最大值
          */
         max?: number | null;
         /**
-         * 步长（可选）
+         * 步长
          */
         step?: number | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'numberInput';
+      }
+    | {
         /**
-         * 选项列表（可选）
+         * 字段名称（用于数据存储）
          */
-        options?:
-          | {
-              label: string;
-              value: string;
-              defaultSelected?: boolean | null;
-              id?: string | null;
-            }[]
-          | null;
+        fieldName: string;
         /**
-         * 是否多选（可选）
+         * 字段标签
+         */
+        label: string;
+        required?: boolean | null;
+        /**
+         * 是否多选
          */
         multiple?: boolean | null;
+        options: {
+          label: string;
+          value: string;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'select';
+      }
+    | {
         /**
-         * 接受的文件类型（可选）
+         * 字段名称（用于数据存储）
          */
-        accept?: string | null;
+        fieldName: string;
         /**
-         * 是否多文件（可选）
+         * 字段标签
          */
-        fileMultiple?: boolean | null;
+        label: string;
+        required?: boolean | null;
         /**
-         * 最大文件大小（MB，可选）
-         */
-        maxSize?: number | null;
-        /**
-         * 最小日期（可选）
+         * 最小日期
          */
         minDate?: string | null;
         /**
-         * 最大日期（可选）
+         * 最大日期
          */
         maxDate?: string | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'datePicker';
+      }
+    | {
         /**
-         * 答案类型（可选）
+         * 字段名称（用于数据存储）
          */
-        answerType?: ('text' | 'richText' | 'link' | 'image' | 'video') | null;
+        fieldName: string;
         /**
-         * 标题级别（可选）
+         * 字段标签
          */
-        headingLevel?: ('h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6') | null;
+        label: string;
+        required?: boolean | null;
         /**
-         * 最大评分（可选）
+         * 是否多文件
          */
-        maxRating?: ('5' | '10' | 'percentage') | null;
+        multiple?: boolean | null;
         /**
-         * 布局方式（可选）
+         * 接受的文件类型（如：.pdf,.doc,.docx）
          */
-        layout?: ('vertical' | 'horizontal' | 'grid') | null;
+        accept?: string | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'fileUpload';
+      }
+    | {
         /**
-         * 样式类型（可选）
+         * 字段名称（用于数据存储）
          */
-        style?: ('default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger') | null;
-      };
-    };
-    id?: string | null;
-  }[];
+        fieldName: string;
+        /**
+         * 字段标签
+         */
+        label: string;
+        required?: boolean | null;
+        /**
+         * 是否多图片
+         */
+        multiple?: boolean | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'imageUpload';
+      }
+    | {
+        /**
+         * 字段名称（用于数据存储）
+         */
+        fieldName: string;
+        /**
+         * 字段标签
+         */
+        label: string;
+        /**
+         * 占位符文本
+         */
+        placeholder?: string | null;
+        required?: boolean | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'emailInput';
+      }
+    | {
+        /**
+         * 字段名称（用于数据存储）
+         */
+        fieldName: string;
+        /**
+         * 字段标签
+         */
+        label: string;
+        /**
+         * 占位符文本
+         */
+        placeholder?: string | null;
+        required?: boolean | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'phoneInput';
+      }
+    | {
+        /**
+         * 字段名称（用于数据存储）
+         */
+        fieldName: string;
+        /**
+         * 字段标签
+         */
+        label: string;
+        required?: boolean | null;
+        /**
+         * 默认选中
+         */
+        defaultChecked?: boolean | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'checkbox';
+      }
+    | {
+        /**
+         * 字段名称（用于数据存储）
+         */
+        fieldName: string;
+        /**
+         * 字段标签
+         */
+        label: string;
+        required?: boolean | null;
+        options: {
+          label: string;
+          value: string;
+          defaultSelected?: boolean | null;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'radioGroup';
+      }
+    | {
+        /**
+         * 字段名称（用于数据存储）
+         */
+        fieldName: string;
+        /**
+         * 字段标签
+         */
+        label: string;
+        /**
+         * 占位符文本
+         */
+        placeholder?: string | null;
+        required?: boolean | null;
+        /**
+         * 行数
+         */
+        rows?: number | null;
+        /**
+         * 最大长度
+         */
+        maxLength?: number | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'textarea';
+      }
+  )[];
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -1050,50 +1144,150 @@ export interface TemplatesSelect<T extends boolean = true> {
   publishedAt?: T;
   updatedBy?: T;
   versionNote?: T;
+  templateType?: T;
   fields?:
     | T
     | {
-        fieldType?: T;
-        fieldName?: T;
-        fieldLabel?: T;
-        fieldConfig?:
+        textInput?:
           | T
           | {
-              required?: T;
-              defaultValue?: T;
+              fieldName?: T;
+              label?: T;
               placeholder?: T;
-              description?: T;
-              advancedConfig?:
+              required?: T;
+              maxLength?: T;
+              id?: T;
+              blockName?: T;
+            };
+        richText?:
+          | T
+          | {
+              fieldName?: T;
+              label?: T;
+              required?: T;
+              id?: T;
+              blockName?: T;
+            };
+        numberInput?:
+          | T
+          | {
+              fieldName?: T;
+              label?: T;
+              required?: T;
+              min?: T;
+              max?: T;
+              step?: T;
+              id?: T;
+              blockName?: T;
+            };
+        select?:
+          | T
+          | {
+              fieldName?: T;
+              label?: T;
+              required?: T;
+              multiple?: T;
+              options?:
                 | T
                 | {
-                    maxLength?: T;
-                    minLength?: T;
-                    rows?: T;
-                    min?: T;
-                    max?: T;
-                    step?: T;
-                    options?:
-                      | T
-                      | {
-                          label?: T;
-                          value?: T;
-                          defaultSelected?: T;
-                          id?: T;
-                        };
-                    multiple?: T;
-                    accept?: T;
-                    fileMultiple?: T;
-                    maxSize?: T;
-                    minDate?: T;
-                    maxDate?: T;
-                    answerType?: T;
-                    headingLevel?: T;
-                    maxRating?: T;
-                    layout?: T;
-                    style?: T;
+                    label?: T;
+                    value?: T;
+                    id?: T;
                   };
+              id?: T;
+              blockName?: T;
             };
-        id?: T;
+        datePicker?:
+          | T
+          | {
+              fieldName?: T;
+              label?: T;
+              required?: T;
+              minDate?: T;
+              maxDate?: T;
+              id?: T;
+              blockName?: T;
+            };
+        fileUpload?:
+          | T
+          | {
+              fieldName?: T;
+              label?: T;
+              required?: T;
+              multiple?: T;
+              accept?: T;
+              id?: T;
+              blockName?: T;
+            };
+        imageUpload?:
+          | T
+          | {
+              fieldName?: T;
+              label?: T;
+              required?: T;
+              multiple?: T;
+              id?: T;
+              blockName?: T;
+            };
+        emailInput?:
+          | T
+          | {
+              fieldName?: T;
+              label?: T;
+              placeholder?: T;
+              required?: T;
+              id?: T;
+              blockName?: T;
+            };
+        phoneInput?:
+          | T
+          | {
+              fieldName?: T;
+              label?: T;
+              placeholder?: T;
+              required?: T;
+              id?: T;
+              blockName?: T;
+            };
+        checkbox?:
+          | T
+          | {
+              fieldName?: T;
+              label?: T;
+              required?: T;
+              defaultChecked?: T;
+              id?: T;
+              blockName?: T;
+            };
+        radioGroup?:
+          | T
+          | {
+              fieldName?: T;
+              label?: T;
+              required?: T;
+              options?:
+                | T
+                | {
+                    label?: T;
+                    value?: T;
+                    defaultSelected?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        textarea?:
+          | T
+          | {
+              fieldName?: T;
+              label?: T;
+              placeholder?: T;
+              required?: T;
+              rows?: T;
+              maxLength?: T;
+              id?: T;
+              blockName?: T;
+            };
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1401,36 +1595,6 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "settings".
- */
-export interface Setting {
-  id: string;
-  site: {
-    title: string;
-    description?: string | null;
-    logo?: (string | null) | Media;
-  };
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "settings_select".
- */
-export interface SettingsSelect<T extends boolean = true> {
-  site?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        logo?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

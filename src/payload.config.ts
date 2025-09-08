@@ -23,7 +23,7 @@ import {
 } from './endpoints/importExport'
 
 // 全局配置
-import { Settings } from './globals/Settings'
+// import { Settings } from './globals/Settings'
 
 // 系统初始化插件
 import { initSystem } from './plugins/initSystem'
@@ -38,13 +38,13 @@ export default buildConfig({
   admin: {
     user: Users.slug,
     avatar: 'gravatar',
-    // autoLogin:
-    //   SYSTEM_CONFIG.AUTH_LOGIN.email && SYSTEM_CONFIG.AUTH_LOGIN.password
-    //     ? {
-    //         email: SYSTEM_CONFIG.AUTH_LOGIN.email,
-    //         password: SYSTEM_CONFIG.AUTH_LOGIN.password,
-    //       }
-    //     : false,
+    autoLogin:
+      SYSTEM_CONFIG.AUTH_LOGIN.email && SYSTEM_CONFIG.AUTH_LOGIN.password
+        ? {
+            email: SYSTEM_CONFIG.AUTH_LOGIN.email,
+            password: SYSTEM_CONFIG.AUTH_LOGIN.password,
+          }
+        : false,
     importMap: {
       baseDir: path.resolve(dirname),
     },
@@ -62,7 +62,7 @@ export default buildConfig({
   //   fallback: true, // defaults to true
   // },
   collections: [Users, Templates, Pages, Components, Collections, Media],
-  globals: [Settings],
+  // globals: [Settings],
   endpoints: [
     // 认证端点
     forgotPassword,
