@@ -135,24 +135,9 @@ export const Templates: CollectionConfig = {
               },
             },
             {
-              name: 'placeholder',
-              type: 'text',
-              localized: true,
-              admin: {
-                description: '占位符文本',
-              },
-            },
-            {
               name: 'required',
               type: 'checkbox',
               defaultValue: false,
-            },
-            {
-              name: 'maxLength',
-              type: 'number',
-              admin: {
-                description: '最大长度',
-              },
             },
           ],
         },
@@ -223,28 +208,6 @@ export const Templates: CollectionConfig = {
               name: 'required',
               type: 'checkbox',
               defaultValue: false,
-            },
-            {
-              name: 'min',
-              type: 'number',
-              admin: {
-                description: '最小值',
-              },
-            },
-            {
-              name: 'max',
-              type: 'number',
-              admin: {
-                description: '最大值',
-              },
-            },
-            {
-              name: 'step',
-              type: 'number',
-              defaultValue: 1,
-              admin: {
-                description: '步长',
-              },
             },
           ],
         },

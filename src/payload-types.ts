@@ -203,15 +203,7 @@ export interface Template {
          * 字段名称（用于数据存储）
          */
         fieldName: string;
-        /**
-         * 占位符文本
-         */
-        placeholder?: string | null;
         required?: boolean | null;
-        /**
-         * 最大长度
-         */
-        maxLength?: number | null;
         id?: string | null;
         blockName?: string | null;
         blockType: 'textInput';
@@ -232,18 +224,6 @@ export interface Template {
          */
         fieldName: string;
         required?: boolean | null;
-        /**
-         * 最小值
-         */
-        min?: number | null;
-        /**
-         * 最大值
-         */
-        max?: number | null;
-        /**
-         * 步长
-         */
-        step?: number | null;
         id?: string | null;
         blockName?: string | null;
         blockType: 'numberInput';
@@ -463,6 +443,46 @@ export interface Page {
   updatedBy?: (string | null) | User;
   /**
    * Select a published page template
+   */
+  template: string | Template;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * Create actual components using component templates, supporting multiple languages
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "components".
+ */
+export interface Component {
+  id: string;
+  /**
+   * URL Friendly Identifier
+   */
+  slug: string;
+  /**
+   * Language Selection
+   */
+  language: 'zh' | 'zh-TW' | 'ja-JP' | 'ko-KR' | 'en';
+  /**
+   * Content Status
+   */
+  status: 'draft' | 'published' | 'archived';
+  /**
+   * Content Author
+   */
+  author: string | User;
+  /**
+   * Published At
+   */
+  publishedAt?: string | null;
+  /**
+   * Last Updated By
+   */
+  updatedBy?: (string | null) | User;
+  /**
+   * Select a published component template
    */
   template: string | Template;
   /**
@@ -744,175 +764,6 @@ export interface Media {
   };
 }
 /**
- * Create actual components using component templates, supporting multiple languages
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "components".
- */
-export interface Component {
-  id: string;
-  /**
-   * URL Friendly Identifier
-   */
-  slug: string;
-  /**
-   * Language Selection
-   */
-  language: 'zh' | 'zh-TW' | 'ja-JP' | 'ko-KR' | 'en';
-  /**
-   * Content Status
-   */
-  status: 'draft' | 'published' | 'archived';
-  /**
-   * Content Author
-   */
-  author: string | User;
-  /**
-   * Published At
-   */
-  publishedAt?: string | null;
-  /**
-   * Last Updated By
-   */
-  updatedBy?: (string | null) | User;
-  /**
-   * Select a published component template
-   */
-  template: string | Template;
-  /**
-   * 根据模板定义的字段添加内容
-   */
-  templateFields?:
-    | {
-        /**
-         * 字段名称（对应模板中的字段名）
-         */
-        fieldName: string;
-        /**
-         * 字段类型
-         */
-        fieldType:
-          | 'text'
-          | 'textarea'
-          | 'richText'
-          | 'number'
-          | 'email'
-          | 'select'
-          | 'date'
-          | 'file'
-          | 'image'
-          | 'question'
-          | 'answer'
-          | 'heading'
-          | 'description'
-          | 'button'
-          | 'quote'
-          | 'code'
-          | 'video'
-          | 'gallery'
-          | 'table'
-          | 'list'
-          | 'stats';
-        /**
-         * 字段值
-         */
-        fieldValue?: string | null;
-        /**
-         * 富文本内容
-         */
-        richTextValue?: {
-          root: {
-            type: string;
-            children: {
-              type: string;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
-        /**
-         * 数字值
-         */
-        numberValue?: number | null;
-        /**
-         * 日期值
-         */
-        dateValue?: string | null;
-        /**
-         * 选择值
-         */
-        selectValue?: string | null;
-        /**
-         * 文件/图片
-         */
-        fileValue?: (string | null) | Media;
-        /**
-         * 图片画廊
-         */
-        galleryValue?:
-          | {
-              image: string | Media;
-              caption?: string | null;
-              id?: string | null;
-            }[]
-          | null;
-        /**
-         * 表格数据
-         */
-        tableValue?: {
-          headers?:
-            | {
-                header: string;
-                id?: string | null;
-              }[]
-            | null;
-          rows?:
-            | {
-                cells?:
-                  | {
-                      cell?: string | null;
-                      id?: string | null;
-                    }[]
-                  | null;
-                id?: string | null;
-              }[]
-            | null;
-        };
-        /**
-         * 列表项
-         */
-        listValue?:
-          | {
-              item: string;
-              id?: string | null;
-            }[]
-          | null;
-        /**
-         * 统计数据
-         */
-        statsValue?:
-          | {
-              label: string;
-              value: number;
-              unit?: string | null;
-              id?: string | null;
-            }[]
-          | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'templateField';
-      }[]
-    | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
  * Create collection content using collection templates, supporting multiple languages
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1126,9 +977,7 @@ export interface TemplatesSelect<T extends boolean = true> {
           | T
           | {
               fieldName?: T;
-              placeholder?: T;
               required?: T;
-              maxLength?: T;
               id?: T;
               blockName?: T;
             };
@@ -1145,9 +994,6 @@ export interface TemplatesSelect<T extends boolean = true> {
           | {
               fieldName?: T;
               required?: T;
-              min?: T;
-              max?: T;
-              step?: T;
               id?: T;
               blockName?: T;
             };
@@ -1278,66 +1124,6 @@ export interface PagesSelect<T extends boolean = true> {
   publishedAt?: T;
   updatedBy?: T;
   template?: T;
-  templateFields?:
-    | T
-    | {
-        templateField?:
-          | T
-          | {
-              fieldName?: T;
-              fieldType?: T;
-              fieldValue?: T;
-              richTextValue?: T;
-              numberValue?: T;
-              dateValue?: T;
-              selectValue?: T;
-              fileValue?: T;
-              galleryValue?:
-                | T
-                | {
-                    image?: T;
-                    caption?: T;
-                    id?: T;
-                  };
-              tableValue?:
-                | T
-                | {
-                    headers?:
-                      | T
-                      | {
-                          header?: T;
-                          id?: T;
-                        };
-                    rows?:
-                      | T
-                      | {
-                          cells?:
-                            | T
-                            | {
-                                cell?: T;
-                                id?: T;
-                              };
-                          id?: T;
-                        };
-                  };
-              listValue?:
-                | T
-                | {
-                    item?: T;
-                    id?: T;
-                  };
-              statsValue?:
-                | T
-                | {
-                    label?: T;
-                    value?: T;
-                    unit?: T;
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
-      };
   updatedAt?: T;
   createdAt?: T;
   _status?: T;

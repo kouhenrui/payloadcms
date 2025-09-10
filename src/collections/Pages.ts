@@ -1,4 +1,4 @@
-import { CollectionConfig } from 'payload'
+import { CollectionConfig, Field } from 'payload'
 import { PUBLISHED_STATUS } from '@/utilities/key'
 import { isAdminOrSelf } from '@/access/userAccess'
 import { getBaseFields, getTemplateType } from '@/utilities/dynamicFields'
@@ -50,220 +50,13 @@ export const Pages: CollectionConfig = {
     // 基础字段 - 使用 getBaseFields 函数
     ...getBaseFields(),
     getTemplateType('page'),
-    // 模板字段内容
-    {
-      name: 'templateFields',
-      type: 'blocks',
-      admin: {
-        description: '根据模板定义的字段添加内容',
-        condition: (data) => data.template,
-      },
-      blocks: [
-        // 通用字段块 - 支持所有模板字段类型
-        {
-          slug: 'templateField',
-          labels: { singular: 'Template Field', plural: 'Template Fields' },
-          fields: [
-            {
-              name: 'fieldName',
-              type: 'text',
-              required: true,
-              admin: {
-                description: '字段名称（对应模板中的字段名）',
-              },
-            },
-            {
-              name: 'fieldType',
-              type: 'select',
-              required: true,
-              options: [
-                { label: '文本', value: 'text' },
-                { label: '文本域', value: 'textarea' },
-                { label: '富文本', value: 'richText' },
-                { label: '数字', value: 'number' },
-                { label: '邮箱', value: 'email' },
-                { label: '选择', value: 'select' },
-                { label: '日期', value: 'date' },
-                { label: '文件上传', value: 'file' },
-                { label: '图片上传', value: 'image' },
-                { label: '问题', value: 'question' },
-                { label: '答案', value: 'answer' },
-                { label: '标题', value: 'heading' },
-                { label: '说明', value: 'description' },
-                { label: '按钮', value: 'button' },
-                { label: '引用', value: 'quote' },
-                { label: '代码', value: 'code' },
-                { label: '视频', value: 'video' },
-                { label: '图片画廊', value: 'gallery' },
-                { label: '表格', value: 'table' },
-                { label: '列表', value: 'list' },
-                { label: '统计', value: 'stats' },
-              ],
-              admin: {
-                description: '字段类型',
-              },
-            },
-            {
-              name: 'fieldValue',
-              type: 'text',
-              localized: true,
-              admin: {
-                description: '字段值',
-              },
-            },
-            {
-              name: 'richTextValue',
-              type: 'richText',
-              localized: true,
-              admin: {
-                condition: (data) => data.fieldType === 'richText',
-                description: '富文本内容',
-              },
-            },
-            {
-              name: 'numberValue',
-              type: 'number',
-              admin: {
-                condition: (data) => data.fieldType === 'number',
-                description: '数字值',
-              },
-            },
-            {
-              name: 'dateValue',
-              type: 'date',
-              admin: {
-                condition: (data) => data.fieldType === 'date',
-                description: '日期值',
-              },
-            },
-            {
-              name: 'selectValue',
-              type: 'text',
-              admin: {
-                condition: (data) => data.fieldType === 'select',
-                description: '选择值',
-              },
-            },
-            {
-              name: 'fileValue',
-              type: 'upload',
-              relationTo: 'media',
-              admin: {
-                condition: (data) => data.fieldType === 'file' || data.fieldType === 'image',
-                description: '文件/图片',
-              },
-            },
-            {
-              name: 'galleryValue',
-              type: 'array',
-              fields: [
-                {
-                  name: 'image',
-                  type: 'upload',
-                  relationTo: 'media',
-                  required: true,
-                },
-                {
-                  name: 'caption',
-                  type: 'text',
-                  localized: true,
-                },
-              ],
-              admin: {
-                condition: (data) => data.fieldType === 'gallery',
-                description: '图片画廊',
-              },
-            },
-            {
-              name: 'tableValue',
-              type: 'group',
-              fields: [
-                {
-                  name: 'headers',
-                  type: 'array',
-                  fields: [
-                    {
-                      name: 'header',
-                      type: 'text',
-                      required: true,
-                      localized: true,
-                    },
-                  ],
-                },
-                {
-                  name: 'rows',
-                  type: 'array',
-                  fields: [
-                    {
-                      name: 'cells',
-                      type: 'array',
-                      fields: [
-                        {
-                          name: 'cell',
-                          type: 'text',
-                          localized: true,
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-              admin: {
-                condition: (data) => data.fieldType === 'table',
-                description: '表格数据',
-              },
-            },
-            {
-              name: 'listValue',
-              type: 'array',
-              fields: [
-                {
-                  name: 'item',
-                  type: 'text',
-                  required: true,
-                  localized: true,
-                },
-              ],
-              admin: {
-                condition: (data) => data.fieldType === 'list',
-                description: '列表项',
-              },
-            },
-            {
-              name: 'statsValue',
-              type: 'array',
-              fields: [
-                {
-                  name: 'label',
-                  type: 'text',
-                  required: true,
-                  localized: true,
-                },
-                {
-                  name: 'value',
-                  type: 'number',
-                  required: true,
-                },
-                {
-                  name: 'unit',
-                  type: 'text',
-                  localized: true,
-                },
-              ],
-              admin: {
-                condition: (data) => data.fieldType === 'stats',
-                description: '统计数据',
-              },
-            },
-          ],
-        },
-      ],
-    },
+    // 公共动态字段
+    // createDynamicField(),
   ],
   timestamps: true,
   hooks: {
     beforeChange: [
-      ({ data, req }) => {
+      async ({ data, req, operation }) => {
         // 自动设置发布时间
         if (data.status === PUBLISHED_STATUS && !data.publishedAt) {
           data.publishedAt = new Date().toISOString()
@@ -278,7 +71,6 @@ export const Pages: CollectionConfig = {
         if (!data.author && req.user) {
           data.author = req.user.id
         }
-
         return data
       },
     ],
